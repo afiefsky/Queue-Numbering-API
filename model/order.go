@@ -24,3 +24,15 @@ func (o *Order) Insert(ctx context.Context) (*mongo.InsertOneResult, error) {
 	collection := config.MongoDB.Collection("orders")
 	return collection.InsertOne(ctx, o)
 }
+
+func UpdateQueueNumber(ctx context.Context, orderCode string, queueNumber int64) error {
+	collection := config.MongoDB.Collection("orders")
+	filter := map[string]interface{}{"order_code": orderCode}
+	update := map[string]interface{}{
+		"$set": map[string]interface{}{
+			"queue_number": queueNumber,
+		},
+	}
+	_, err := collection.UpdateOne(ctx, filter, update)
+	return err
+}
