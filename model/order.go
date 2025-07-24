@@ -12,9 +12,11 @@ import (
 
 type Order struct {
 	ID           primitive.ObjectID `bson:"_id,omitempty" json:"id"`
+	OrderCode    string             `bson:"order_code" json:"order_code"`
 	CustomerName string             `bson:"customer_name" json:"customer_name"`
 	Product      string             `bson:"product" json:"product"`
 	Status       string             `bson:"status" json:"status"`
+	QueueNumber  int64              `bson:"queue_number,omitempty" json:"queue_number,omitempty"`
 	CreatedAt    time.Time          `bson:"created_at" json:"created_at"`
 }
 
