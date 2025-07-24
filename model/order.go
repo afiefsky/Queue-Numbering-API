@@ -36,3 +36,15 @@ func UpdateQueueNumber(ctx context.Context, orderCode string, queueNumber int64)
 	_, err := collection.UpdateOne(ctx, filter, update)
 	return err
 }
+
+func UpdateOrderStatus(ctx context.Context, orderCode, status string) error {
+	collection := config.MongoDB.Collection("orders")
+	filter := map[string]interface{}{"order_code": orderCode}
+	update := map[string]interface{}{
+		"$set": map[string]interface{}{
+			"status": status,
+		},
+	}
+	_, err := collection.UpdateOne(ctx, filter, update)
+	return err
+}
